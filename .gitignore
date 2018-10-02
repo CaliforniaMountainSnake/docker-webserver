@@ -1,0 +1,3 @@
+/nbproject/
+/.env
+/.docker_build_configs/nginx/default_nginx.conf
