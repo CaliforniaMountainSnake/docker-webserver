@@ -27,3 +27,12 @@ RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime && dpkg-reconfigure 
 RUN apt-get update && apt-get install -y procps
 # [/_______НАСТРОЙКА_ЗАВИСИМОСТЕЙ_ОДИНАКОВАЯ_ДЛЯ_WEB_И_CLI_______]
 
+
+
+# Указываем рабочую директорию для PHP
+WORKDIR /var/www
+
+# Запускаем контейнер
+# Из документации: The main purpose of a CMD is to provide defaults for an executing container. These defaults can include an executable, 
+# or they can omit the executable, in which case you must specify an ENTRYPOINT instruction as well.
+CMD ["php-fpm"]

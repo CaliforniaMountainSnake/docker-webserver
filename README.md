@@ -1,5 +1,10 @@
-# Конфигурация веб-сервера Docker: Nginx.
+# Конфигурация веб-сервера Docker: Nginx 1.15.4 + PHP-FPM 7.2.10.
 Это конфиг докера для поднятия вебсервера.
+В составе:
+- Nginx 1.15.4.
+- php:7.2.10-fpm.
+- Curl, wget, imagick, ffmpeg, composer, git, procps, mysqli, pdo.
+
 
 ## КОМАНДЫ ДЛЯ РАБОТЫ С DOCKER-COMPOSE:
 Собрать контейнеры и запустить в фоне:
