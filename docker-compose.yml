@@ -27,6 +27,42 @@ services:
             - ./www:/var/www/:Z
             # Изменяем некоторые значения в php.ini:
             - ./.docker_build_configs/php_fpm/my_extra_php.ini:/usr/local/etc/php/conf.d/my_extra_php.ini:Z
+        links:
+            - mysql
+
+    mysql:
+        restart: always
+        #image: mysql:8.0.12
+        image: mysql:5.7
+        ports:
+            - ${MYSQL_PORT}:3306
+        environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        volumes:
+            # Зададим первоначальные настройки MySQL, такие как default charset:
+            - ./.docker_build_configs/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:Z
+            # Зальем первоначальный дамп таблиц:
+            #- ./.docker_build_configs/mysql/mysql_init_db_strurture:/docker-entrypoint-initdb.d:Z
+            # Помещаем файлы mysql из контейнера на хост, чтобы они были доступны для бэкапа.
+            #- ./mysql_files:/var/lib/mysql:Z
+
+    phpmyadmin:
+        restart: always
+        image: phpmyadmin/phpmyadmin:4.7
+        ports:
+            - ${PHPMYADMIN_PORT}:80
+        volumes:
+            # Зададим некоторые свои настройки phpmyadmin:
+            - ./.docker_build_configs/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:Z
+        environment:
+            #MYSQL_USER: ${MYSQL_USER}
+            #MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        links: 
+            - mysql:db
 
 volumes:
     persistent:
