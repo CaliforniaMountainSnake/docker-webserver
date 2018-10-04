@@ -1,14 +1,14 @@
-# Конфигурация веб-сервера Docker: Nginx 1.15.4 + PHP-FPM 7.2.10 + MySQL 5.7.
+# Docker webserver configuration: Nginx + PHP-FPM + MySQL + PhpMyAdmin.
 Это конфиг докера для поднятия вебсервера.
 ### Состав:
 - Nginx 1.15.4.
-- php:7.2.10-fpm (Curl, wget, imagick, ffmpeg, composer, git, procps, mysqli, pdo).
+- php:7.2.10-fpm (Curl, wget, imagick, gd, ffmpeg, composer, git, procps, mysqli, pdo).
 - MySQL 5.7.
 - PhpMyAdmin 4.7.
 
 ### Структура файлов:
 - /.docker_build_configs/ - файлы с настройками контейнеров.
-- /logs/ - монтируется из /var/logs/.
+- /logs/ - папка логов контейнеров.
 - /www/ - монтируется из /var/www/.
 - /www/public_html/ - корень вебсервера.
 То есть, рабочей директорией php является www, но корень вебсервера - /www/public_html/.
@@ -27,6 +27,9 @@
 5. Перейдите через cd в папку с docker-compose.yml и запустите вебсервер командой ```docker-compose up -d --build```. (Смотрите команды для работы с docker-compose).
 6. Остановка вебсервера выполняется командой ```docker-compose down```.
 
+## Что еще предстоит сделать:
+- Перевести на английский всю документацию.
+- CRON (Или копирование докерфайла php в контейнер с cron, или, что будет гораздо желательнее, исполнение php-скриптов из контейнера cron, не устанавливая туда php, через php-fpm. Nginx же это как-то делает).
 
 ## КОМАНДЫ ДЛЯ РАБОТЫ С DOCKER-COMPOSE:
 Собрать контейнеры и запустить в фоне:
@@ -59,7 +62,7 @@ clear && docker exec -it docker-server-mark-2_nginx_1 bash
 
 Выполнить произвольный код в контейнере:
 ```bash
-clear && docker exec -ti moderation_telegram_bot_php_cli_cron_1 sh -c "ls"
+clear && docker exec -ti docker-server-mark-2_nginx_1 sh -c "ls"
 ```
 
 Выйти из терминала контейнера:

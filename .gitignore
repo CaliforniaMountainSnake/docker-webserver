@@ -1,3 +1,13 @@
 /nbproject/
 /.env
-/.docker_build_configs/nginx/default_nginx.conf
+
+# Ignore everything in /.docker_build_configs/nginx/
+/.docker_build_configs/nginx/*
+# Except default.conf
+/.docker_build_configs/nginx/!default.conf
+
+
+# Ignore everything in public_html
+/www/public_html/*
+# Except index.php
+!/www/public_html/index.php
