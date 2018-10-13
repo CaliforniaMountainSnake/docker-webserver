@@ -2,6 +2,9 @@ FROM php:7.2.10-fpm
 
 LABEL maintainer="bond.ge@yandex.ru"
 
+# Wait dynamic arguments:
+ARG CONTAINER_TIMEZONE_PHPFPM
+
 # [_______НАСТРОЙКА_ЗАВИСИМОСТЕЙ_ОДИНАКОВАЯ_ДЛЯ_WEB_И_CLI_______]
 # Устанавливаем базовый софт:
 RUN apt-get update && apt-get install -y \
@@ -31,8 +34,8 @@ RUN apt-get update && apt-get install -y procps
 # Install Composer:
 RUN curl --silent --show-error https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
-# Пытаемся поставить таймзону, хоть это нихрена и не работает:
-RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime && dpkg-reconfigure -f noninteractive tzdata && date
+# Set timezone:
+RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE_PHPFPM /etc/localtime && echo $CONTAINER_TIMEZONE_PHPFPM > /etc/timezone
 # [/_______НАСТРОЙКА_ЗАВИСИМОСТЕЙ_ОДИНАКОВАЯ_ДЛЯ_WEB_И_CLI_______]
 
 

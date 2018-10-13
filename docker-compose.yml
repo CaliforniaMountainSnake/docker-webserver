@@ -12,7 +12,7 @@ services:
             - ./www/:/var/www/:Z
             # Подключим файл конфига Nginx:
             - ./.docker_build_configs/nginx/default.conf:/etc/nginx/conf.d/default.conf:Z
-            # Монтируем логи из контейнера на хост:
+            # Mount Nginx logs:
             - ./logs/nginx/:/var/log/nginx/nginx_file_logs/:Z
         links:
             - phpfpm
@@ -22,6 +22,8 @@ services:
         build:
             context: .
             dockerfile: ./.docker_build_configs/php_fpm/Dockerfile
+            args:
+                CONTAINER_TIMEZONE_PHPFPM: ${CONTAINER_TIMEZONE_PHPFPM}
         volumes:
             # Монтируем папку приложения, в том числе недоступные из веба файлы:
             - ./www:/var/www/:Z
@@ -42,13 +44,13 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         volumes:
-            # Зададим первоначальные настройки mysql, такие как default charset:
+            # Зададим дополнительные настройки mysql:
             - ./.docker_build_configs/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:Z
             # Зальем первоначальный дамп таблиц:
             #- ./.docker_build_configs/mysql/mysql_init_db_strurture:/docker-entrypoint-initdb.d:Z
-            # Монтируем файлы mysql из контейнера на хост, чтобы они были доступны для бэкапа.
+            # Монтируем файлы mysql на хост, чтобы они не уничтожались пре перезапуске контейнера.
             #- ./mysql_files:/var/lib/mysql:Z
-            # Монтируем лог mysql:
+            # Mount mysql logs:
             - ./logs/mysql/:/var/log/mysql/:Z
 
     phpmyadmin:
@@ -65,6 +67,21 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         links: 
             - mysql:db
+            
+    cron:
+        restart: always
+        build:
+            context: .
+            dockerfile: ./.docker_build_configs/cron/Dockerfile
+            args:
+                CONTAINER_TIMEZONE_CRON: ${CONTAINER_TIMEZONE_CRON}
+        volumes:
+            # Монтируем папку приложения, в том числе недоступные из веба файлы:
+            - ./www/:/var/www/:Z
+            # Mount cron output logs:
+            - ./logs/cron_output/:/var/log/cron/:Z
+        links:
+            - phpfpm
 
 volumes:
     persistent:

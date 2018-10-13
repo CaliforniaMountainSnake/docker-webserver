@@ -1,0 +1,21 @@
+# All executable programms must be with an ABSOLUTE path.
+# Not "date", but "/bin/date"
+# Not "php", but "/usr/local/bin/php" (or "/usr/bin/php"), etc.
+# Note the backslash escaping the % sign.
+
+# Simple cron test:
+#* * * * * echo "test" >> /var/www/public_html/simple_cron_test.txt
+
+# Example: Run php script throw fast-cgi:
+#* * * * * SCRIPT_NAME=/var/www/public_html/test_cron.php SCRIPT_FILENAME=/var/www/public_html/test_cron.php QUERY_STRING=VAR1 DOCUMENT_ROOT=/var/www/public_html/ REQUEST_METHOD=GET /usr/bin/cgi-fcgi -bind -connect phpfpm:9000
+
+
+
+# Launch the bash script every minute:
+* * * * * cd /var/www/cron/ && chmod +x cron_tasks_every_minute.sh && (echo "CRON WORKS: "`/bin/date +"\%Y.\%m.\%d \%H:\%M:\%S"` && sh cron_tasks_every_minute.sh) >> /var/log/cron/`/bin/date +"\%Y_\%m_\%d"`_every_minute.log
+
+# Launch the bash script every hour:
+0 * * * * cd /var/www/cron/ && chmod +x cron_tasks_every_hour.sh && (echo "CRON WORKS: "`/bin/date +"\%Y.\%m.\%d \%H:\%M:\%S"` && sh cron_tasks_every_hour.sh) >> /var/log/cron/`/bin/date +"\%Y_\%m_\%d"`_every_hour.log
+
+# Launch the bash script every day:
+0 0 * * * cd /var/www/cron/ && chmod +x cron_tasks_every_day.sh && (echo "CRON WORKS: "`/bin/date +"\%Y.\%m.\%d \%H:\%M:\%S"` && sh cron_tasks_every_day.sh) >> /var/log/cron/`/bin/date +"\%Y_\%m_\%d"`_every_day.log

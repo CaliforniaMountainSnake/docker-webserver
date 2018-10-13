@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [1.4.0] - 2018-10-13
+### Added
+- Добавил контейнер с CRON. Из крона можно вызывать php-скрипты по fast-cgi.
+### Changed
+- Добавил единообразную настройку таймзоны в контейнерах с phpfpm и cron.
+### Security
+- Добавил в реп папку /mysql_files/. Если раскомментировать в docker-compose.yml строку, то файлы баз данных mysql будут хранится на хосте и можно будет пересоздавать контейнеры без потери данных БД.
+
 ## [1.3.0] - 2018-10-04
 ### Added
 - Добавил GD в образ php-fpm.
