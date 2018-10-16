@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [1.4.1] - 2018-10-16
+### Fixed
+- Добавил в реп забытый /www/public_html/test_cron.php, тестирующий выполнение php-скрипта через fast-cgi.
+
 ## [1.4.0] - 2018-10-13
 ### Added
 - Добавил контейнер с CRON. Из крона можно вызывать php-скрипты по fast-cgi.

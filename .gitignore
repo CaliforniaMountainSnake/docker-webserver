@@ -1,5 +1,6 @@
 /nbproject/
 /.env
+/REFACTORING.md
 
 # Ignore everything in /.docker_build_configs/nginx/
 /.docker_build_configs/nginx/*
@@ -9,5 +10,6 @@
 
 # Ignore everything in public_html
 /www/public_html/*
-# Except index.php
+# Except
 !/www/public_html/index.php
+!/www/public_html/test_cron.php
