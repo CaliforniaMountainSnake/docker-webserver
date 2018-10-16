@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [1.5.0] - 2018-10-16
+### Added
+- Добавил поддержку SSL-сертификата в конфигурацию Nginx.
+
 ## [1.4.1] - 2018-10-16
 ### Fixed
 - Добавил в реп забытый /www/public_html/test_cron.php, тестирующий выполнение php-скрипта через fast-cgi.

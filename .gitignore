@@ -4,8 +4,9 @@
 
 # Ignore everything in /.docker_build_configs/nginx/
 /.docker_build_configs/nginx/*
-# Except default.conf
-/.docker_build_configs/nginx/!default.conf
+# Except
+!/.docker_build_configs/nginx/default.conf
+!/.docker_build_configs/nginx/Dockerfile
 
 
 # Ignore everything in public_html
