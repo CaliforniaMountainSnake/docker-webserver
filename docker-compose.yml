@@ -8,7 +8,7 @@ services:
             dockerfile: ./.docker_build_configs/nginx/Dockerfile
             args:
                 CONTAINER_TIMEZONE_NGINX: ${CONTAINER_TIMEZONE_NGINX}
-                SERVER_NAME: ${SERVER_NAME}
+                NGINX_SERVER_NAME: ${NGINX_SERVER_NAME}
                 SSL_LOCAL_CRT_FILE: ${SSL_LOCAL_CRT_FILE}
                 SSL_LOCAL_KEY_FILE: ${SSL_LOCAL_KEY_FILE}
                 SSL_LOCAL_CA_FILE: ${SSL_LOCAL_CA_FILE}

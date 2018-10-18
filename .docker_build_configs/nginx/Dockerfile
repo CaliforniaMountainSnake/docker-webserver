@@ -2,7 +2,7 @@ FROM nginx:1.15.4
 
 # Wait dynamic arguments:
 ARG CONTAINER_TIMEZONE_NGINX
-ARG SERVER_NAME
+ARG NGINX_SERVER_NAME
 ARG SSL_LOCAL_CRT_FILE
 ARG SSL_LOCAL_KEY_FILE
 ARG SSL_LOCAL_CA_FILE
@@ -23,7 +23,7 @@ ADD $SSL_LOCAL_KEY_FILE $SSL_SERVER_KEY_FILE
 ADD $SSL_LOCAL_CA_FILE $SSL_SERVER_CA_FILE
 
 # Change params in the nginx conf:
-RUN sed -i 's#^\(\s*\)\#*\s*\(server_name\s\+\).*$#\1\2'"$SERVER_NAME;"'#' $SSL_SERVER_CONF_FILE
+RUN sed -i 's#^\(\s*\)\#*\s*\(server_name\s\+\).*$#\1\2'"$NGINX_SERVER_NAME;"'#' $SSL_SERVER_CONF_FILE
 RUN sed -i 's#^\(\s*\)\#*\s*\(ssl_certificate\s\+\).*$#\1\2'"$SSL_SERVER_CRT_FILE;"'#' $SSL_SERVER_CONF_FILE
 RUN sed -i 's#^\(\s*\)\#*\s*\(ssl_certificate_key\s\+\).*$#\1\2'"$SSL_SERVER_KEY_FILE;"'#' $SSL_SERVER_CONF_FILE
 

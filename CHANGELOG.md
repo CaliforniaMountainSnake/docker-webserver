@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [1.5.1] - 2018-10-18
+### Fixed
+- Улучшен перевод на английский различных файлов.
+### Security
+- В целях совместимости с переменными окружения php ENV-переменная SERVER_NAME переименована в NGINX_SERVER_NAME.
+
 ## [1.5.0] - 2018-10-16
 ### Added
 - Добавил поддержку SSL-сертификата в конфигурацию Nginx.

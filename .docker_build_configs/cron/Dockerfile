@@ -18,9 +18,9 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE_CRON /etc/localtime && echo 
 # Install CRON:
 RUN apt-get update && apt-get install -y --no-install-recommends cron
 
-# Add crontab task:
+# Add a crontab task:
 ADD ./.docker_build_configs/cron/crontab_config.txt /var/crontab_config.txt
 RUN crontab /var/crontab_config.txt
 
-# Launch container:
+# Launch the container:
 CMD ["cron", "-f"]
