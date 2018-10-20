@@ -29,6 +29,9 @@ RUN apt-get update && apt-get install -y \
 # Install utils to work with processes:
 RUN apt-get update && apt-get install -y procps
 
+# Install sockets for PHP. MadelineProto will not work without them.
+RUN docker-php-ext-install sockets
+
 # Install Composer:
 RUN curl --silent --show-error https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 

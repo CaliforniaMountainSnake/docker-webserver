@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [1.5.2] - 2018-10-20
+### Added
+- Добавил забытые сокеты в докерфайл phpfpm.
+- Добавил инструкцию по цепочкам сертификатов с сайта nginx в .env.example.
+
 ## [1.5.1] - 2018-10-18
 ### Fixed
 - Улучшен перевод на английский различных файлов.
