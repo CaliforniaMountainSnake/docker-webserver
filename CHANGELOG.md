@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [1.5.3] - 2018-10-22
+### Changed
+- Убрал вывод первых строк с заголовками из результата выполнения php-скрипта по fast-cgi. Также убрал буферизацию пайпа: " | stdbuf -i0 -o0 -e0 tail -n +4". Сделал более простую и логичную команду запуска скрипта по fast-cgi.
+### Fixed
+- Переименовал папку "php_fpm" в "phpfpm" для унификации с названием сервиса в docker-compose.yml.
+
 ## [1.5.2] - 2018-10-20
 ### Added
 - Добавил забытые сокеты в докерфайл phpfpm.

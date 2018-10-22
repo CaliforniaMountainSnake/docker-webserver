@@ -30,14 +30,14 @@ services:
         restart: always
         build:
             context: .
-            dockerfile: ./.docker_build_configs/php_fpm/Dockerfile
+            dockerfile: ./.docker_build_configs/phpfpm/Dockerfile
             args:
                 CONTAINER_TIMEZONE_PHPFPM: ${CONTAINER_TIMEZONE_PHPFPM}
         volumes:
             # Mount the app folder, including not accessible from web files:
             - ./www:/var/www/:Z
             # Change some values in php.ini:
-            - ./.docker_build_configs/php_fpm/my_extra_php.ini:/usr/local/etc/php/conf.d/my_extra_php.ini:Z
+            - ./.docker_build_configs/phpfpm/my_extra_php.ini:/usr/local/etc/php/conf.d/my_extra_php.ini:Z
         links:
             - mysql
 
