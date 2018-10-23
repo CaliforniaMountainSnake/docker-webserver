@@ -16,6 +16,11 @@ ARG SSL_SERVER_CA_FILE=/etc/nginx/ssl/site_ca.crt
 ARG SSL_LOCAL_CONF_FILE=.docker_build_configs/nginx/default.conf
 ARG SSL_SERVER_CONF_FILE=/etc/nginx/conf.d/default.conf
 
+# Install the base soft:
+RUN apt-get update && apt-get install -y \
+    nano \
+    htop
+
 # Copy files:
 ADD $SSL_LOCAL_CONF_FILE $SSL_SERVER_CONF_FILE
 ADD $SSL_LOCAL_CRT_FILE $SSL_SERVER_CRT_FILE

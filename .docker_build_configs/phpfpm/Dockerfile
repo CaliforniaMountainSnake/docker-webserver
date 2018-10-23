@@ -8,10 +8,11 @@ ARG CONTAINER_TIMEZONE_PHPFPM
 RUN apt-get update && apt-get install -y \
     wget \
     curl \
-    ffmpeg \
-    git \
     zip \
-    nano
+    nano \
+    htop \
+    git \
+    ffmpeg
 
 # Install mysqli and pdo extensions:
 RUN docker-php-ext-install mysqli pdo pdo_mysql

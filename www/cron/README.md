@@ -5,4 +5,5 @@ SH-скрипты можно легко редактировать без пер
 Если хотите иные, более уникальные настройки CRON, отредактируйте файл .docker_build_configs/cron/crontab_config.txt перед запуском контейнеров.
 
 ## Пример crontab-задания для запуска php-скрипта через fast-cgi:
+# QUERY_STRING params must be urlencoded.
 * * * * * DOCUMENT_ROOT="/var/www/public_html/" MY_SCRIPT="test_cron.php" QUERY_STRING=param1=value1\&param2=value2 SCRIPT_NAME=$DOCUMENT_ROOT/$MY_SCRIPT SCRIPT_FILENAME=$SCRIPT_NAME REQUEST_METHOD=GET /usr/bin/cgi-fcgi -bind -connect phpfpm:9000 | stdbuf -i0 -o0 -e0 tail -n +4

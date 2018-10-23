@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     zip \
     nano \
+    htop \
     iputils-ping \
     libfcgi0ldbl
 
