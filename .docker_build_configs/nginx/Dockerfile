@@ -1,4 +1,4 @@
-FROM nginx:1.15.4
+FROM nginx:1.15.8
 
 # Wait dynamic arguments:
 ARG CONTAINER_TIMEZONE_NGINX

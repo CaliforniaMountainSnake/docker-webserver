@@ -4,8 +4,5 @@
 # Simple test:
 echo "test $(date)" >> /var/www/public_html/simple_test_from_bash.txt
 
-# Run php script throw fast-cgi:
-# You can redirect output to the file without buffering:
-# ...bla bla bla...-connect phpfpm:9000 | stdbuf -i0 -o0 -e0 tail -n +4 >> "/var/my_log_file.log"
-# QUERY_STRING params must be urlencoded.
-DOCUMENT_ROOT="/var/www/public_html/" MY_SCRIPT="test_cron.php" QUERY_STRING=param1=value1\&param2=value2 SCRIPT_NAME=$DOCUMENT_ROOT/$MY_SCRIPT SCRIPT_FILENAME=$SCRIPT_NAME REQUEST_METHOD=GET /usr/bin/cgi-fcgi -bind -connect phpfpm:9000 | stdbuf -i0 -o0 -e0 tail -n +4
+# Скрипт выполняется напрямую в cli-окружении контейнера cron
+. /var/www/.env.docker && /usr/bin/docker exec ${CONTAINER_NAME_PHPFPM} /bin/sh -c "cd /var/www/public/ && php test_cron.php"

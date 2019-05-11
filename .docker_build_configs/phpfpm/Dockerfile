@@ -1,4 +1,4 @@
-FROM php:7.2.10-fpm
+FROM php:7.3.1-fpm
 
 # Wait dynamic arguments:
 ARG CONTAINER_TIMEZONE_PHPFPM
@@ -12,10 +12,10 @@ RUN apt-get update && apt-get install -y \
     nano \
     htop \
     git \
-    ffmpeg
+    libzip-dev
 
-# Install mysqli and pdo extensions:
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Install php extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql zip
 
 # Install Imagemagick & PHP Imagick ext:
 RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends

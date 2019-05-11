@@ -1,4 +1,4 @@
-FROM debian:9.5-slim
+FROM debian:9.6-slim
 
 # Wait dynamic arguments:
 ARG CONTAINER_TIMEZONE_CRON
@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
 
 # Set timezone:
 RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE_CRON /etc/localtime && echo $CONTAINER_TIMEZONE_CRON > /etc/timezone
+
+# Install docker (Yep, this is docker in docker):
+RUN curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 
 # Install CRON:
 RUN apt-get update && apt-get install -y --no-install-recommends cron

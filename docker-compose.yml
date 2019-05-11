@@ -2,6 +2,7 @@ version: '3.1'
 
 services:
     nginx:
+        container_name: ${CONTAINER_NAME_NGINX}
         restart: always
         build:
             context: .
@@ -24,9 +25,9 @@ services:
             - ./logs/nginx/:/var/log/nginx/nginx_file_logs/:Z
         links:
             - phpfpm
-            
 
     phpfpm:
+        container_name: ${CONTAINER_NAME_PHPFPM}
         restart: always
         build:
             context: .
@@ -38,31 +39,37 @@ services:
             - ./www:/var/www/:Z
             # Change some values in php.ini:
             - ./.docker_build_configs/phpfpm/my_extra_php.ini:/usr/local/etc/php/conf.d/my_extra_php.ini:Z
+            # Mount the docker .env file:
+            - ./.env:/var/www/.env.docker:Z
+            # Mount logs:
+            - ./logs/php_cli_errors.log:/var/log/php_cli_errors.log:Z
         links:
             - mysql
 
     mysql:
+        container_name: ${CONTAINER_NAME_MYSQL}
         restart: always
-        #image: mysql:8.0.12
-        image: mysql:5.7
+        image: mysql:8.0.15
+        command: --default-authentication-plugin=mysql_native_password
         ports:
             - ${MYSQL_PORT}:3306
         environment:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_USER: ${MYSQL_USERNAME}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         volumes:
             # Set mysql extra config:
             - ./.docker_build_configs/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:Z
             # Upload initial tables dump:
-            #- ./.docker_build_configs/mysql/mysql_init_db_strurture:/docker-entrypoint-initdb.d:Z
+            #- ./.docker_build_configs/mysql/mysql_init_db_structure:/docker-entrypoint-initdb.d:Z
             # Mount mysql databases files to the host, that they will not deleted when a container was terminated:
-            #- ./mysql_files:/var/lib/mysql:Z
+            - ./mysql_files:/var/lib/mysql:Z
             # Mount mysql logs:
             - ./logs/mysql/:/var/log/mysql/:Z
 
     phpmyadmin:
+        container_name: ${CONTAINER_NAME_PHPMYADMIN}
         restart: always
         image: phpmyadmin/phpmyadmin:4.7
         ports:
@@ -71,13 +78,12 @@ services:
             # Set some phpmyadmin configs:
             - ./.docker_build_configs/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:Z
         environment:
-            #MYSQL_USER: ${MYSQL_USER}
-            #MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        links: 
+        links:
             - mysql:db
-            
+
     cron:
+        container_name: ${CONTAINER_NAME_CRON}
         restart: always
         build:
             context: .
@@ -89,6 +95,10 @@ services:
             - ./www/:/var/www/:Z
             # Mount cron output logs:
             - ./logs/cron_output/:/var/log/cron/:Z
+            # Mount the docker .env file:
+            - ./.env:/var/www/.env.docker:Z
+            # Mount a docker socket:
+            - /var/run/docker.sock:/var/run/docker.sock:Z
         links:
             - phpfpm
 
