@@ -1,4 +1,4 @@
-FROM debian:9.6-slim
+FROM debian:10-slim
 
 # Wait dynamic arguments:
 ARG CONTAINER_TIMEZONE_CRON
@@ -9,9 +9,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     zip \
     nano \
-    htop \
-    iputils-ping \
-    libfcgi0ldbl
+    htop
 
 # Set timezone:
 RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE_CRON /etc/localtime && echo $CONTAINER_TIMEZONE_CRON > /etc/timezone

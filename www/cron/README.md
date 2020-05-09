@@ -1,12 +1,10 @@
 # CRON Bash scripts
-Это папка с sh-файлами, которые будут регулярно вызываться CRON каждую минуту, час и день.
-Внутри них можно описать любые нужные задачи.
-SH-скрипты можно легко редактировать без перезапуска контейнеров и изменения crontab-заданий.
-Если хотите иные, более уникальные настройки CRON, отредактируйте файл .docker_build_configs/cron/crontab_config.txt перед запуском контейнеров.
+This is a directory with sh-scripts that will be executed every minute, hour, day and month.
+You can write any needed tasks inside this scripts.
+Sh-scripts are easy to edit without reloading containers and without modifying the crontab file.
+If you want to have more specific CRON settings, you should edit the file `.docker_build_configs/cron/crontab_config.txt` before starting the containers.
 
-## Пример crontab-задания для запуска php-скрипта напрямую в php-fpm контейнере:
+# Example of running a php script from the sh-script:
+```bash
 . /var/www/.env.docker && /usr/bin/docker exec ${CONTAINER_NAME_PHPFPM} /bin/sh -c "cd /var/www/public/ && php test_cron.php"
-
-## Пример crontab-задания для запуска php-скрипта через fast-cgi:
-# QUERY_STRING params must be urlencoded.
-* * * * * DOCUMENT_ROOT="/var/www/public_html/" MY_SCRIPT="test_cron.php" QUERY_STRING=param1=value1\&param2=value2 SCRIPT_NAME=$DOCUMENT_ROOT/$MY_SCRIPT SCRIPT_FILENAME=$SCRIPT_NAME REQUEST_METHOD=GET /usr/bin/cgi-fcgi -bind -connect phpfpm:9000 | stdbuf -i0 -o0 -e0 tail -n +4
+```

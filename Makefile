@@ -3,37 +3,63 @@ include .env
 export
 .DEFAULT_GOAL := help
 
+# Detecting OS type.
+# https://stackoverflow.com/a/14777895/10452175
+ifeq '$(findstring ;,$(PATH))' ';'
+    detected_OS := Windows
+else
+    detected_OS := $(shell uname 2>/dev/null || echo Unknown)
+    detected_OS := $(patsubst CYGWIN%,Cygwin,$(detected_OS))
+    detected_OS := $(patsubst MSYS%,MSYS,$(detected_OS))
+    detected_OS := $(patsubst MINGW%,MSYS,$(detected_OS))
+endif
+
+# Select the docker binary depending on the OS.
+ifeq ($(detected_OS),Windows)
+    docker_command := winpty docker
+    docker_compose_command := winpty docker-compose
+else
+    docker_command := docker
+    docker_compose_command := docker-compose
+endif
+
+
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-up: chown-logs ## Start all containers
-	docker-compose up -d --build
+up: ## Start all containers
+	$(docker_compose_command) up -d --build
 
 down: ## Stop all containers
-	docker-compose down
+	$(docker_compose_command) down
 
 restart: down up ## Restart all started containers
 
+reinstall-full: down clear-mysql up ## Delete MySQL database and restart containers
+
 it-nginx: ## Get into the Nginx container terminal
-	docker exec -it ${CONTAINER_NAME_NGINX} bash
+	$(docker_command) exec -it ${CONTAINER_NAME_NGINX} bash
 
 it-php: ## Get into the php-fpm container terminal
-	docker exec -it ${CONTAINER_NAME_PHPFPM} bash
+	$(docker_command) exec -it ${CONTAINER_NAME_PHPFPM} bash
 
 it-mysql: ## Get into the MySQL container terminal
-	docker exec -it ${CONTAINER_NAME_MYSQL} bash
+	$(docker_command) exec -it ${CONTAINER_NAME_MYSQL} bash
 
 it-phpmyadmin: ## Get into the Php-MyAdmin container terminal
-	docker exec -it ${CONTAINER_NAME_PHPMYADMIN} sh
+	$(docker_command) exec -it ${CONTAINER_NAME_PHPMYADMIN} sh
 
 it-cron: ## Get into the CRON container terminal
-	docker exec -it ${CONTAINER_NAME_CRON} bash
+	$(docker_command) exec -it ${CONTAINER_NAME_CRON} bash
 
-chown-logs: ## Set needed access rights to the logs directory
-	chown -R 999:999 logs/
-
-example-in-container: ## Example shows how you can run any command inside any contaier
-	docker exec ${CONTAINER_NAME_PHPFPM} /bin/sh -c "cd /var/www/ && php --version"
-
-clear-mysql: down ## Clear all files inside the mysql directory.
+clear-mysql: down ## Clear all files inside the mysql directory
 	rm -r mysql_files/*
+
+backup: ## Zip the project and save a backup archive in the parent directory
+	zip -r ../backup_$(notdir $(shell pwd))_`date +'%Y.%m.%d_%H:%M:%S'`.zip .
+
+docker-remove-all-containers: ## WARNING! Stop and remove ALL docker containers
+	clear && $(docker_command) stop `$(docker_command) ps -a -q` && $(docker_command) rm `$(docker_command) ps -a -q` && $(docker_command) ps -a
+
+docker-remove-all-images: ## WARNING! Remove ALL docker images
+	clear && $(docker_command) rmi `$(docker_command) images -q`

@@ -3,3 +3,6 @@
 /.env
 /REFACTORING.md
 /vendor/
+/www/.env.docker
+/www/public/cron_test_from_bash.txt
+/www/public/cron_test_from_php.txt

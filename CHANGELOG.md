@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [1.7.0] - 2020-05-09
+### Added
+- Added a possibility to install `Xdebug` into the php container.
+- Added a possibility to install `ffmpeg` into the php container.
+- Added a possibility to install `NodeJS` into the php container.
+### Changed
+- Image of the cron container has been updated to `debian:10-slim`.
+- Image of the nginx container has been updated to `nginx:1.17`.
+- Image of the php container has been updated to `php:7.4-fpm`.
+- Image of the mysql container has been updated to `mysql:8.0`.
+- Image of the phpmyadmin container has been updated to `phpmyadmin/phpmyadmin:5.0`.
+- Makefile has been updated. Now you can use the same makefile on Windows (in Git Bash) and on Linux.
+- README.md has been translated into English.
+- CHANGELOG.md will now be in English too.
+### Fixed
+- Fixed php error logs mounting.
+
 ## [1.6.0] - 2018-05-11
 ### Added
 - Добавил крон-задание на запуск скрипта каждый месяц.
@@ -87,3 +104,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.0.0] - 2018-10-02
 ### Added
 - Реализован самый базовый функционал: поднятие веб-сервера nginx, подключение папки проекта с хоста в контейнер.
+
+[1.7.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.6.0...1.7.0
+[1.6.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/3bec73745367c497ff3f9a2e155c67a3e17b3f47...1.6.0
