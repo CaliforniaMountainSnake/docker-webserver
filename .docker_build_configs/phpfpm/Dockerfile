@@ -30,6 +30,16 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql zip
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 
+# Install Imagemagick & PHP Imagick ext:
+RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends
+RUN pecl install imagick && docker-php-ext-enable imagick
+
+# Install GD:
+RUN apt-get update && apt-get install -y \
+    libfreetype6-dev libjpeg62-turbo-dev libpng-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd
+
 # Install utils to work with processes:
 RUN apt-get update && apt-get install -y procps
 

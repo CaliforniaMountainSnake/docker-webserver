@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [1.7.1] - 2020-05-09
+### Fixed
+- Added forgotten Imagick and GD php extensions.
+
 ## [1.7.0] - 2020-05-09
 ### Added
 - Added a possibility to install `Xdebug` into the php container.
@@ -105,5 +109,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Реализован самый базовый функционал: поднятие веб-сервера nginx, подключение папки проекта с хоста в контейнер.
 
+[1.7.1]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.6.0...1.7.0
 [1.6.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/3bec73745367c497ff3f9a2e155c67a3e17b3f47...1.6.0
