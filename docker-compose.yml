@@ -18,11 +18,11 @@ services:
             - ${NGINX_SSL_PORT}:443
         volumes:
             # Mount the app folder, including not accessible from web files:
-            - ./www/:/var/www/:Z
+            - ./www/:/var/www/
             # Mount Nginx configuration file:
-            #- ./.docker_build_configs/nginx/default.conf:/etc/nginx/conf.d/default.conf:Z
+            #- ./.docker_build_configs/nginx/default.conf:/etc/nginx/conf.d/default.conf
             # Mount Nginx logs:
-            - ./logs/nginx/:/var/log/nginx/nginx_file_logs/:Z
+            - ./logs/nginx/:/var/log/nginx/nginx_file_logs/
         links:
             - phpfpm
 
@@ -39,15 +39,15 @@ services:
                 CONTAINER_TIMEZONE_PHPFPM: ${CONTAINER_TIMEZONE_PHPFPM}
         volumes:
             # Mount the app folder, including not accessible from web files:
-            - ./www:/var/www/:Z
+            - ./www:/var/www/
             # Copy configs of php.ini:
-            - ./.docker_build_configs/phpfpm/my_extra_php.ini:/usr/local/etc/php/conf.d/my_extra_php.ini:Z
+            - ./.docker_build_configs/phpfpm/my_extra_php.ini:/usr/local/etc/php/conf.d/my_extra_php.ini
             # Copy configs of xdebug:
-            - ./.docker_build_configs/phpfpm/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:Z
+            - ./.docker_build_configs/phpfpm/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
             # Mount the docker .env file:
-            - ./.env:/var/www/.env.docker:Z
+            - ./.env:/var/www/.env.docker
             # Mount logs:
-            - ./logs/php_errors:/var/log/php_errors/:Z
+            - ./logs/php_errors:/var/log/php_errors/
         links:
             - mysql
 
@@ -65,13 +65,13 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         volumes:
             # Set mysql extra config:
-            - ./.docker_build_configs/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:Z
+            - ./.docker_build_configs/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
             # Upload initial tables dump:
-            #- ./.docker_build_configs/mysql/mysql_init_db_structure:/docker-entrypoint-initdb.d:Z
+            #- ./.docker_build_configs/mysql/mysql_init_db_structure:/docker-entrypoint-initdb.d
             # Mount mysql databases files to the host, that they will not deleted when a container was terminated:
-            - ./mysql_files:/var/lib/mysql:Z
+            - ./mysql_files:/var/lib/mysql
             # Mount mysql logs:
-            - ./logs/mysql/:/var/log/mysql/:Z
+            - ./logs/mysql/:/var/log/mysql/
 
     phpmyadmin:
         container_name: ${CONTAINER_NAME_PHPMYADMIN}
@@ -81,7 +81,7 @@ services:
             - ${PHPMYADMIN_PORT}:80
         volumes:
             # Set some phpmyadmin configs:
-            - ./.docker_build_configs/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:Z
+            - ./.docker_build_configs/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         links:
@@ -97,13 +97,13 @@ services:
                 CONTAINER_TIMEZONE_CRON: ${CONTAINER_TIMEZONE_CRON}
         volumes:
             # Mount the app folder, including not accessible from web files:
-            - ./www/:/var/www/:Z
+            - ./www/:/var/www/
             # Mount cron output logs:
-            - ./logs/cron_output/:/var/log/cron/:Z
+            - ./logs/cron_output/:/var/log/cron/
             # Mount the docker .env file:
-            - ./.env:/var/www/.env.docker:Z
+            - ./.env:/var/www/.env.docker
             # Mount a docker socket:
-            - /var/run/docker.sock:/var/run/docker.sock:Z
+            - /var/run/docker.sock:/var/run/docker.sock
         links:
             - phpfpm
 
