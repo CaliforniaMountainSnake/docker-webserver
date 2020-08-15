@@ -5,7 +5,7 @@ This is a docker-compose configuration intended for running a web server.
 ### Includes:
 - Nginx 1.17.x.
 - PHP 7.4.x with: imagick, gd, procps, composer, git. Optionally: xdebug, ffmpeg 4.2.2, nodejs.
-- MySQL 8.0.x.
+- MariaDB 10.5.x.
 - PhpMyAdmin 5.0.x.
 - CRON.
 
@@ -24,7 +24,7 @@ Such as nginx configuration, php.ini, xdebug.ini, mysql.cnf, phpmyadmin config, 
 
 
 ### INSTALL:
-1. Copy project to any directory.
+1. `git clone https://github.com/CaliforniaMountainSnake/docker-webserver && cd docker-webserver && git config core.fileMode false && chmod 0444 .docker_build_configs/mysql/mysql.cnf`
 2. Rename `/.env.example` to `/.env` and configure passwords and other settings.
 3. Put SSL-certificate files into the `/ssl_files` directory and configure their names in the `/.env` file. Current nginx configuration requires to set ssl configuration. You can use self-signed certificate.
 4. If you need to, configure containers' additional config files in the `/.docker_build_configs`.

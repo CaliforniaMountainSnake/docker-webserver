@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [2.0.0] - 2020-08-15
+### Changed
+- MySQL database has been changed to MariaDB. MariaDB works better with Docker. Warning! Old mysql db-files are not compatible for the new MariaDB!
+
 ## [1.7.3] - 2020-08-14
 ### Removed
 - Z-parameter has been removed from the paths in the docker-compose.yml.
@@ -117,6 +121,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Реализован самый базовый функционал: поднятие веб-сервера nginx, подключение папки проекта с хоста в контейнер.
 
+[2.0.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.7.3...2.0.0
 [1.7.3]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.7.2...1.7.3
 [1.7.2]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.7.1...1.7.2
 [1.7.1]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.7.0...1.7.1

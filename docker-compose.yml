@@ -54,8 +54,7 @@ services:
     mysql:
         container_name: ${CONTAINER_NAME_MYSQL}
         restart: always
-        image: mysql:8.0
-        command: --default-authentication-plugin=mysql_native_password
+        image: mariadb:10.5
         ports:
             - ${MYSQL_PORT}:3306
         environment:

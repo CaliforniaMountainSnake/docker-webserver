@@ -6,13 +6,18 @@ default-character-set=utf8mb4
 
 [mysqld]
 collation-server = utf8mb4_unicode_520_ci
-init-connect='SET NAMES utf8mb4'
+init-connect = 'SET NAMES utf8mb4'
 character-set-server = utf8mb4
 
 # Set time zone:
 default_time_zone = '+03:00'
 
+[mariadb]
 # Enable logs:
-log-error =/var/log/mysql/error.log
-slow_query_log = ON
-slow_query_log_file = /var/log/mysql/slow_queries.log
+log_error=/var/log/mysql/error.log
+
+general_log
+general_log_file=/var/log/mysql/general.log
+
+slow_query_log
+slow_query_log_file=/var/log/mysql/slow_query.log
