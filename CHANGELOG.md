@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [2.0.2] - 2020-08-23
+### Fixed
+- Fixed "rsync-to-remote" Makefile target.
+
 ## [2.0.1] - 2020-08-23
 ### Added
 - Added additional commands in the Makefile.
@@ -127,6 +131,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Реализован самый базовый функционал: поднятие веб-сервера nginx, подключение папки проекта с хоста в контейнер.
 
+[2.0.2]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.7.3...2.0.0
 [1.7.3]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.7.2...1.7.3

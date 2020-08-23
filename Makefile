@@ -70,8 +70,8 @@ clear-mysql: down ## Clear all files inside the mysql directory
 backup: ## Zip the project and save a backup archive in the parent directory
 	zip -r ../backup_$(notdir $(shell pwd))_`date +'%Y.%m.%d_%H:%M:%S'`.zip .
 
-rsync-to-remote: ## Sync to Remote server home directory from current directory
-	rsync -vhra ./ root@5.23.52.70:/home/$(notdir $(shell pwd)) --include='**.gitignore' --exclude='/.git' --filter=':- .gitignore' --delete-after
+rsync-to-remote: ## Sync to remote server directory from current directory
+	ssh ${REMOTE_SERVER_USER}@${REMOTE_SERVER_ADDRESS} mkdir -p ${REMOTE_SERVER_PATH} && rsync -vhra ./ ${REMOTE_SERVER_USER}@${REMOTE_SERVER_ADDRESS}:${REMOTE_SERVER_PATH} --include='**.gitignore' --exclude='/.git' --filter=':- .gitignore' --delete-after
 
 docker-remove-all-containers: ## WARNING! Stop and remove ALL docker containers
 	clear && $(docker_command) stop `$(docker_command) ps -a -q` && $(docker_command) rm `$(docker_command) ps -a -q` && $(docker_command) ps -a
