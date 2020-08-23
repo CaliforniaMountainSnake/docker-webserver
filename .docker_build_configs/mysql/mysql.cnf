@@ -16,8 +16,8 @@ default_time_zone = '+03:00'
 # Enable logs:
 log_error=/var/log/mysql/error.log
 
-general_log
-general_log_file=/var/log/mysql/general.log
+#general_log
+#general_log_file=/var/log/mysql/general.log
 
 slow_query_log
 slow_query_log_file=/var/log/mysql/slow_query.log
