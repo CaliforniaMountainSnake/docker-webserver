@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [3.0.0] - 2020-09-30
+### Added
+- Now one server with 1 ip can have multiple domains, and these domains will belong to the different docker containers. Using "https://github.com/nginx-proxy/nginx-proxy".
+- Added the fully automatically free letsencrypt SSL certificate issuing for the required containers. Using "https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion". Now you do not need to have any SSL certificates, they will be issued automatically by 1 click for free.
+- Added a "rsync-to-remote" Makefile target.
+- Added a "docker-ps" Makefile target.
+### Changed
+- Nginx container now just know nothing about the SSL, nginx-proxy performs all SSL functions.
+### Removed
+- Removed unnecessary variables from the ".env" file, dockerfiles and docker-compose.yml.
+
 ## [2.0.2] - 2020-08-23
 ### Fixed
 - Fixed "rsync-to-remote" Makefile target.
@@ -131,6 +142,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Реализован самый базовый функционал: поднятие веб-сервера nginx, подключение папки проекта с хоста в контейнер.
 
+[3.0.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.2...3.0.0
 [2.0.2]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/1.7.3...2.0.0
