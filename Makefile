@@ -25,7 +25,7 @@ endif
 
 
 help: ## Show this help
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 start: nginx-proxy-start nginx-proxy-letsencrypt-start up ## Start   all containers and proxies
 
@@ -65,7 +65,7 @@ composer-dump: ## composer dump-autoload
 clear-mysql: stop ## Clear all files inside the mysql directory
 	rm -r mysql_files/*
 
-backup: ## Zip the project and save a backup archive in the parent directory
+backup: ## Zip the project and save a backup archive in the parent dir
 	zip -r ../backup_$(notdir $(shell pwd))_`date +'%Y.%m.%d_%H:%M:%S'`.zip .
 
 rsync-to-remote: ## Sync to remote server directory from current directory

@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [3.0.1] - 2020-10-01
+### Fixed
+- Removed waste 2 spaces at the beginning of each line at the Makefile.
+
 ## [3.0.0] - 2020-09-30
 ### Added
 - Now one server with 1 ip can have multiple domains, and these domains will belong to the different docker containers. Using "https://github.com/nginx-proxy/nginx-proxy".
@@ -142,6 +146,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Реализован самый базовый функционал: поднятие веб-сервера nginx, подключение папки проекта с хоста в контейнер.
 
+[3.0.1]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.2...3.0.0
 [2.0.2]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.0...2.0.1
