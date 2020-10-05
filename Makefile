@@ -29,6 +29,8 @@ help: ## Show this help
 
 start: nginx-proxy-start nginx-proxy-letsencrypt-start up ## Start   all containers and proxies
 
+start-local: nginx-proxy-start up ## Start   all containers and proxies locally
+
 stop: down nginx-proxy-letsencrypt-stop nginx-proxy-stop ## Stop    all containers and proxies
 
 restart: stop start ## Restart all containers and proxies
@@ -81,16 +83,19 @@ nginx-proxy-start: ## Start nginx-proxy
 	$(docker_command) network create nginx-proxy-network || true && $(docker_command) run -d -p 80:80 -p 443:443 --name nginx-proxy-container --net nginx-proxy-network --volume /etc/nginx/certs --volume /etc/nginx/vhost.d --volume /usr/share/nginx/html --volume /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
 
 nginx-proxy-stop: ## Stop  nginx-proxy
-	$(docker_command) stop nginx-proxy-container && $(docker_command) rm nginx-proxy-container && $(docker_command) network rm nginx-proxy-network
+	$(docker_command) stop nginx-proxy-container || true && $(docker_command) rm nginx-proxy-container || true && $(docker_command) network rm nginx-proxy-network || true
 
 nginx-proxy-letsencrypt-start: ## Start letsencrypt-nginx-proxy-companion
 	docker run --detach --name nginx-proxy-letsencrypt --volumes-from nginx-proxy-container --volume /var/run/docker.sock:/var/run/docker.sock:ro --env "DEFAULT_EMAIL=${LETSENCRYPT_EMAIL}" jrcs/letsencrypt-nginx-proxy-companion
 
 nginx-proxy-letsencrypt-stop: ## Stop  letsencrypt-nginx-proxy-companion
-	$(docker_command) stop nginx-proxy-letsencrypt && $(docker_command) rm nginx-proxy-letsencrypt
+	$(docker_command) stop nginx-proxy-letsencrypt || true && $(docker_command) rm nginx-proxy-letsencrypt || true
 
 docker-ps: ## Show all running docker containers
 	clear && $(docker_command) ps -a
+
+docker-ps-short: ## Show all running docker containers in short form
+	clear && $(docker_command) ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Status}}"
 
 docker-remove-all-containers: ## WARNING! Stop and remove ALL docker containers
 	clear && $(docker_command) stop `$(docker_command) ps -a -q` && $(docker_command) rm `$(docker_command) ps -a -q` && $(docker_command) ps -a
