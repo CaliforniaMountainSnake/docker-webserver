@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 
 
+## [3.0.3] - 2020-10-05
+### Removed
+- Removed unnecessary variables in the .env.example.
+
 ## [3.0.2] - 2020-10-05
 ### Added
 - Added the "start-local" Makefile target. This target starts the services locally, without starting "nginx-proxy-letsencrypt-start", without https, only with http.
@@ -152,6 +156,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Реализован самый базовый функционал: поднятие веб-сервера nginx, подключение папки проекта с хоста в контейнер.
 
+[3.0.3]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/3.0.2...3.0.3
 [3.0.2]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/CaliforniaMountainSnake/docker-webserver/compare/2.0.2...3.0.0
